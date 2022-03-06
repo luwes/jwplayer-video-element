@@ -35,6 +35,35 @@ class VideoBaseElement extends HTMLElement {
     // This promise should be resolved by the consumer of this class
     // when the native element is available.
     this.ready = publicPromise();
+
+    this.querySelectorAll(':scope > track').forEach(async (track) => {
+      if (!this.ready.resolved) await this.ready;
+
+      this.nativeEl?.append(track.cloneNode());
+    });
+
+    // Watch for child adds/removes and update the native element if necessary
+    const mutationCallback = async (mutationsList) => {
+      if (!this.ready.resolved) await this.ready;
+
+      for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          // Child being removed
+          mutation.removedNodes.forEach((node) => {
+            this.nativeEl?.querySelector(`track[src="${node.src}"]`)?.remove();
+          });
+
+          mutation.addedNodes.forEach((node) => {
+            if (node.tagName === 'TRACK') {
+              this.nativeEl?.append(node.cloneNode());
+            }
+          });
+        }
+      }
+    };
+
+    const observer = new MutationObserver(mutationCallback);
+    observer.observe(this, { childList: true, subtree: false });
   }
 
   get nativeEl() {

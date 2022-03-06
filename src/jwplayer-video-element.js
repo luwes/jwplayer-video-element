@@ -3,13 +3,13 @@ import { loadScript, promisify, publicPromise } from './utils.js';
 
 const templateLightDOM = document.createElement('template');
 templateLightDOM.innerHTML = `
-<style>
+<style class="jw-style">
   .jw-no-controls [class*="jw-controls"],
   .jw-no-controls .jw-title {
     display: none !important;
   }
 </style>
-<div></div>
+<div class="jwplayer"></div>
 `;
 
 const templateShadowDOM = document.createElement('template');
@@ -38,7 +38,8 @@ class JWPlayerVideoElement extends VideoBaseElement {
   }
 
   async load() {
-    this.ready = publicPromise();
+    if (this.hasLoaded) this.ready = publicPromise();
+    this.hasLoaded = true;
 
     // e.g. https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html
     const MATCH_SRC = /jwplayer\.com\/players\/(\w+)(?:-(\w+))?/i;
@@ -49,10 +50,11 @@ class JWPlayerVideoElement extends VideoBaseElement {
     const JW = await loadScript(scriptUrl, 'jwplayer');
 
     // Sadly the JW player setup/render will not work in the shadow DOM.
-    this.textContent = '';
+    this.querySelector('.jw-style')?.remove();
+    this.querySelector('.jwplayer')?.remove();
     this.append(templateLightDOM.content.cloneNode(true));
 
-    this.api = JW(this.querySelector('div')).setup({
+    this.api = JW(this.querySelector('.jwplayer')).setup({
       width: '100%',
       height: '100%',
       preload: this.getAttribute('preload') ?? 'metadata',
@@ -63,8 +65,8 @@ class JWPlayerVideoElement extends VideoBaseElement {
 
     this.api.getContainer().classList.toggle('jw-no-controls', !this.controls);
 
-    this.ready.resolve();
     this.dispatchEvent(new Event('ready'));
+    this.ready.resolve();
 
     this.volume = 1;
   }
