@@ -8,23 +8,12 @@ One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media
 
 > 🙋 Looking for a YouTube video element? Check out [`<youtube-video>`](https://github.com/muxinc/youtube-video-element).
 
-## Example
+## Example ([CodeSandbox](https://codesandbox.io/s/jwplayer-video-element-gm5qd1))
 
+<!-- prettier-ignore -->
 ```html
-<html>
-  <head>
-    <script
-      type="module"
-      src="https://unpkg.com/jwplayer-video-element@0"
-    ></script>
-  </head>
-  <body>
-    <jwplayer-video
-      controls
-      src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
-    ></jwplayer-video>
-  </body>
-</html>
+<script type="module" src="https://unpkg.com/jwplayer-video-element@0"></script>
+<jwplayer-video controls src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"></jwplayer-video>
 ```
 
 ## Installing
@@ -33,13 +22,9 @@ One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media
 
 ### Loading into your HTML using `<script>`
 
+<!-- prettier-ignore -->
 ```html
-<head>
-  <script
-    type="module"
-    src="https://unpkg.com/jwplayer-video-element@0"
-  ></script>
-</head>
+<script type="module" src="https://unpkg.com/jwplayer-video-element@0"></script>
 ```
 
 ### Adding to your app via `npm`
