@@ -93,6 +93,10 @@ class JWPlayerVideoElement extends VideoBaseElement {
     }
   }
 
+  get paused() {
+    return this.nativeEl?.paused ?? true;
+  }
+
   get src() {
     return this.getAttribute('src');
   }

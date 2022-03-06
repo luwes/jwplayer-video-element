@@ -10,9 +10,11 @@ describe("<jwplayer-video>", () => {
       src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
     ></jwplayer-video>`);
 
+    assert.equal(player.paused, true, "is paused on initialization");
+
     await player.ready;
 
-    assert(player.paused, "is paused on initialization");
+    assert.equal(player.paused, true, "is paused on initialization");
     assert(!player.ended, "is not ended");
 
     assert(!player.loop, "loop is false by default");

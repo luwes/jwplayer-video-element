@@ -177,7 +177,7 @@ nativeElProps.forEach((prop) => {
     // Getter
     let config = {
       get() {
-        return this.nativeEl[prop];
+        return this.nativeEl?.[prop];
       },
     };
 
