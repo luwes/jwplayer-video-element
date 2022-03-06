@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <title>&lt;jwplayer-video&gt;</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <style>
+      body {
+        min-height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      jwplayer-video {
+        aspect-ratio: 16 / 9;
+      }
+    </style>
+    <script type="module" src="./dist/jwplayer-video-element.js"></script>
+  </head>
+  <body>
+    <h1>&lt;jwplayer-video&gt;</h1>
+    <br />
+    <jwplayer-video
+      controls
+      src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
+    ></jwplayer-video>
+  </body>
+</html>
