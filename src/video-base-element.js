@@ -34,17 +34,17 @@ class VideoBaseElement extends HTMLElement {
     super();
     // This promise should be resolved by the consumer of this class
     // when the native element is available.
-    this.ready = publicPromise();
+    this.loadComplete = publicPromise();
 
     this.querySelectorAll(':scope > track').forEach(async (track) => {
-      if (!this.ready.resolved) await this.ready;
+      if (!this.loadComplete.resolved) await this.loadComplete;
 
       this.nativeEl?.append(track.cloneNode());
     });
 
     // Watch for child adds/removes and update the native element if necessary
     const mutationCallback = async (mutationsList) => {
-      if (!this.ready.resolved) await this.ready;
+      if (!this.loadComplete.resolved) await this.loadComplete;
 
       for (let mutation of mutationsList) {
         if (mutation.type === 'childList') {
@@ -109,7 +109,7 @@ class VideoBaseElement extends HTMLElement {
   // We need to handle sub-class custom attributes differently from
   // attrs meant to be passed to the internal native el.
   async attributeChangedCallback(attrName, oldValue, newValue) {
-    if (!this.ready.resolved) await this.ready;
+    if (!this.loadComplete.resolved) await this.loadComplete;
 
     // Find the matching prop for custom attributes
     const ownProps = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
@@ -199,7 +199,7 @@ nativeElProps.forEach((prop) => {
   if (type == 'function') {
     // Function
     VideoBaseElement.prototype[prop] = async function () {
-      if (!this.ready.resolved) await this.ready;
+      if (!this.loadComplete.resolved) await this.loadComplete;
       return this.nativeEl[prop].apply(this.nativeEl, arguments);
     };
   } else {
@@ -213,7 +213,7 @@ nativeElProps.forEach((prop) => {
     if (prop !== prop.toUpperCase()) {
       // Setter (not a CONSTANT)
       config.set = async function (val) {
-        if (!this.ready.resolved) await this.ready;
+        if (!this.loadComplete.resolved) await this.loadComplete;
         this.nativeEl[prop] = val;
       };
     }

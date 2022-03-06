@@ -12,7 +12,7 @@ describe("<jwplayer-video>", () => {
 
     assert.equal(player.paused, true, "is paused on initialization");
 
-    await player.ready;
+    await player.loadComplete;
 
     assert.equal(player.paused, true, "is paused on initialization");
     assert(!player.ended, "is not ended");
@@ -53,8 +53,8 @@ describe("<jwplayer-video>", () => {
       muted
     ></jwplayer-video>`);
 
-    const ready = player.ready;
-    await player.ready;
+    const loadComplete = player.loadComplete;
+    await player.loadComplete;
 
     assert(player.muted, "is muted");
 
@@ -64,7 +64,7 @@ describe("<jwplayer-video>", () => {
 
     player.src = 'https://cdn.jwplayer.com/players/hAETCxXu-Pd4r8gwe.html';
 
-    assert(ready != player.ready, 'creates a new promise after new src');
+    assert(loadComplete != player.loadComplete, 'creates a new promise after new src');
 
     await promisify(player.addEventListener.bind(player))('loadedmetadata');
 

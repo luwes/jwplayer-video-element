@@ -38,7 +38,7 @@ class JWPlayerVideoElement extends VideoBaseElement {
   }
 
   async load() {
-    if (this.hasLoaded) this.ready = publicPromise();
+    if (this.hasLoaded) this.loadComplete = publicPromise();
     this.hasLoaded = true;
 
     // e.g. https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html
@@ -65,14 +65,14 @@ class JWPlayerVideoElement extends VideoBaseElement {
 
     this.api.getContainer().classList.toggle('jw-no-controls', !this.controls);
 
-    this.dispatchEvent(new Event('ready'));
-    this.ready.resolve();
+    this.dispatchEvent(new Event('loadcomplete'));
+    this.loadComplete.resolve();
 
     this.volume = 1;
   }
 
   async attributeChangedCallback(attrName, oldValue, newValue) {
-    // This is required to come before the await for resolving ready.
+    // This is required to come before the await for resolving loadComplete.
     if (attrName === 'src' && newValue) {
       this.load();
       return;
@@ -81,7 +81,7 @@ class JWPlayerVideoElement extends VideoBaseElement {
     super.attributeChangedCallback(attrName, oldValue, newValue);
 
     // Don't await super.attributeChangedCallback above, it would resolve later.
-    await this.ready;
+    await this.loadComplete;
 
     switch (attrName) {
       case 'controls':
