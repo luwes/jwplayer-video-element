@@ -1,6 +1,6 @@
 {
   "name": "jwplayer-video-element",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "type": "module",
   "description": "Custom element (web component) for the JW player.",
   "main": "dist/jwplayer-video-element.js",
