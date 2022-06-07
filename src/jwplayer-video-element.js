@@ -1,5 +1,5 @@
-import VideoBaseElement from './video-base-element.js';
-import { loadScript, promisify, publicPromise } from './utils.js';
+import { SuperVideoElement } from 'super-media-element';
+import { loadScript, promisify, PublicPromise } from './utils.js';
 
 const templateLightDOM = document.createElement('template');
 templateLightDOM.innerHTML = `
@@ -16,21 +16,19 @@ const templateShadowDOM = document.createElement('template');
 templateShadowDOM.innerHTML = `
 <style>
   :host {
-    display: block;
     width: 100%;
-    position: relative;
-    background: #000;
   }
 </style>
-<slot></slot>
 `;
 
-class JWPlayerVideoElement extends VideoBaseElement {
+class JWPlayerVideoElement extends SuperVideoElement {
+  static template = templateShadowDOM;
+
   constructor() {
     super();
-
-    this.attachShadow({ mode: 'open' });
     this.shadowRoot.append(templateShadowDOM.content.cloneNode(true));
+
+    this.loadComplete = new PublicPromise();
   }
 
   get nativeEl() {
@@ -38,8 +36,15 @@ class JWPlayerVideoElement extends VideoBaseElement {
   }
 
   async load() {
-    if (this.hasLoaded) this.loadComplete = publicPromise();
+    if (this.hasLoaded) this.loadComplete = new PublicPromise();
     this.hasLoaded = true;
+
+    this.loadComplete.then(() => {
+      this.volume = 1;
+    });
+
+    // Wait 1 tick to allow other attributes to be set.
+    await Promise.resolve();
 
     // e.g. https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html
     const MATCH_SRC = /jwplayer\.com\/players\/(\w+)(?:-(\w+))?/i;
@@ -67,8 +72,6 @@ class JWPlayerVideoElement extends VideoBaseElement {
 
     this.dispatchEvent(new Event('loadcomplete'));
     this.loadComplete.resolve();
-
-    this.volume = 1;
   }
 
   async attributeChangedCallback(attrName, oldValue, newValue) {
@@ -125,15 +128,15 @@ class JWPlayerVideoElement extends VideoBaseElement {
 }
 
 if (
-  window.customElements.get('jwplayer-video') ||
-  window.JWPlayerVideoElement
+  globalThis.customElements.get('jwplayer-video') ||
+  globalThis.JWPlayerVideoElement
 ) {
   console.debug(
     'JWPlayerVideoElement: <jwplayer-video> defined more than once.'
   );
 } else {
-  window.JWPlayerVideoElement = JWPlayerVideoElement;
-  window.customElements.define('jwplayer-video', JWPlayerVideoElement);
+  globalThis.JWPlayerVideoElement = JWPlayerVideoElement;
+  globalThis.customElements.define('jwplayer-video', JWPlayerVideoElement);
 }
 
 export default JWPlayerVideoElement;

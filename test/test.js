@@ -48,6 +48,8 @@ describe("<jwplayer-video>", () => {
   });
 
   it("can load a new src", async function () {
+    this.timeout(10000);
+
     const player = await fixture(`<jwplayer-video
       src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
       muted

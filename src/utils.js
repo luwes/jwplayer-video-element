@@ -25,19 +25,15 @@ export function promisify(fn) {
  * A utility to create Promises with convenient public resolve and reject methods.
  * @return {Promise}
  */
-export function publicPromise() {
-  let resolvePromise;
-  let rejectPromise;
-
-  let promise = new Promise(function (resolve, reject) {
-    resolvePromise = resolve;
-    rejectPromise = reject;
-  });
-
-  promise.resolve = (...args) => (
-    (promise.resolved = true), resolvePromise(...args), promise
-  );
-  promise.reject = (...args) => (rejectPromise(...args), promise);
-
-  return promise;
+export class PublicPromise extends Promise {
+  constructor(executor = () => {}) {
+    let res, rej;
+    super((resolve, reject) => {
+      executor(resolve, reject);
+      res = resolve;
+      rej = reject;
+    });
+    this.resolve = res;
+    this.reject = rej;
+  }
 }

@@ -33,12 +33,6 @@ One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media
 npm install jwplayer-video-element --save
 ```
 
-Or yarn
-
-```bash
-yarn add jwplayer-video-element
-```
-
 Include in your app javascript (e.g. src/App.js)
 
 ```js
@@ -46,3 +40,13 @@ import 'jwplayer-video-element';
 ```
 
 This will register the custom elements with the browser so they can be used as HTML.
+
+## Related
+
+- [Media Chrome](https://github.com/muxinc/media-chrome) Your media player's dancing suit. 🕺
+- [`<mux-video>`](https://github.com/muxinc/elements/tree/main/packages/mux-video) A Mux-flavored HTML5 video element w/ hls.js and Mux data builtin.
+- [`<youtube-video>`](https://github.com/muxinc/youtube-video-element) A web component for the YouTube player.
+- [`<wistia-video>`](https://github.com/luwes/wistia-video-element) A web component for the Wistia player.
+- [`<hls-video>`](https://github.com/muxinc/hls-video-element) A web component for playing HTTP Live Streaming (HLS) videos.
+- [`castable-video`](https://github.com/muxinc/castable-video) Cast your video element to the big screen with ease!
+- [`<mux-player>`](https://github.com/muxinc/elements/tree/main/packages/mux-player) The official Mux-flavored video player web component.

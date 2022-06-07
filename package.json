@@ -3,17 +3,6 @@
   "version": "0.0.4",
   "type": "module",
   "description": "Custom element (web component) for the JW player.",
-  "keywords": [
-    "jwplayer",
-    "video",
-    "player",
-    "web component",
-    "custom element"
-  ],
-  "homepage": "https://github.com/luwes/jwplayer-video-element#readme",
-  "bugs": {
-    "url": "https://github.com/luwes/jwplayer-video-element/issues"
-  },
   "main": "dist/jwplayer-video-element.js",
   "files": [
     "src",
@@ -22,11 +11,22 @@
   "repository": "luwes/jwplayer-video-element",
   "author": "Wesley Luyten <me@wesleyluyten.com> (https://wesleyluyten.com)",
   "license": "MIT",
+  "homepage": "https://github.com/luwes/jwplayer-video-element#readme",
+  "bugs": {
+    "url": "https://github.com/luwes/jwplayer-video-element/issues"
+  },
   "scripts": {
     "test": "web-test-runner **/*test.js --node-resolve",
-    "dev": "esbuild src/* --servedir=. --outdir=dist",
-    "build": "esbuild src/jwplayer-video-element.js --sourcemap --bundle --minify --outdir=dist",
-    "prepublishOnly": "yarn build"
+    "dev": "esbuild src/jwplayer-video-element.js --bundle --servedir=. --outdir=dist",
+    "build": "esbuild src/jwplayer-video-element.js --bundle --sourcemap --minify --outdir=dist",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@open-wc/testing": "^3.0.3",
+    "@web/test-runner": "^0.13.26",
+    "esbuild": "^0.14.25",
+    "eslint": "^8.10.0",
+    "prettier": "^2.5.1"
   },
   "prettier": {
     "tabWidth": 2,
@@ -34,6 +34,9 @@
     "semi": true
   },
   "eslintConfig": {
+    "globals": {
+      "globalThis": "writable"
+    },
     "env": {
       "browser": true,
       "es6": true,
@@ -47,11 +50,14 @@
       "sourceType": "module"
     }
   },
-  "devDependencies": {
-    "@open-wc/testing": "^3.0.3",
-    "@web/test-runner": "^0.13.26",
-    "esbuild": "^0.14.25",
-    "eslint": "^8.10.0",
-    "prettier": "^2.5.1"
+  "keywords": [
+    "jwplayer",
+    "video",
+    "player",
+    "web component",
+    "custom element"
+  ],
+  "dependencies": {
+    "super-media-element": "^0.0.1"
   }
 }
