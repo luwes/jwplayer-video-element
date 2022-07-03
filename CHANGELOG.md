@@ -1,3 +1,13 @@
+## [0.1.2](https://github.com/luwes/jwplayer-video-element/compare/v0.1.1...v0.1.2) (2022-07-03)
+
+
+### Bug Fixes
+
+* loadScript race condition ([a74f380](https://github.com/luwes/jwplayer-video-element/commit/a74f380c232ee577b9dc44895ea3139f775730b0))
+* upgrade super-media-element ([38f5a5b](https://github.com/luwes/jwplayer-video-element/commit/38f5a5bac7f5aafd6e98dd24c240bd3c1cc80af1))
+
+
+
 ## [0.1.1](https://github.com/luwes/jwplayer-video-element/compare/v0.1.0...v0.1.1) (2022-06-18)
 
 
