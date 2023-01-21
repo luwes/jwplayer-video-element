@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/luwes/jwplayer-video-element/compare/v0.1.2...v0.2.0) (2023-01-21)
+
+
+### Features
+
+* make build-less ESM module ([0a667fa](https://github.com/luwes/jwplayer-video-element/commit/0a667fad1f094b5ddd5d8e058bc85202d849c50d))
+
+
+
 ## [0.1.2](https://github.com/luwes/jwplayer-video-element/compare/v0.1.1...v0.1.2) (2022-07-03)
 
 
