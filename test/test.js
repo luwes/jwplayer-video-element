@@ -1,6 +1,4 @@
 import { fixture, assert, aTimeout } from "@open-wc/testing";
-import { promisify } from '../src/utils.js';
-import "../src/jwplayer-video-element.js";
 
 describe("<jwplayer-video>", () => {
   it("has a video like API", async function () {
@@ -79,3 +77,13 @@ describe("<jwplayer-video>", () => {
     assert.equal(Math.round(player.duration), 90, `is 90s long`);
   });
 });
+
+function promisify(fn) {
+  return (...args) =>
+    new Promise((resolve) => {
+      fn(...args, (...res) => {
+        if (res.length > 1) resolve(res);
+        else resolve(res[0]);
+      });
+    });
+}
