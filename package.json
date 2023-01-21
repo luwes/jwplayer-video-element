@@ -16,10 +16,10 @@
     "dev": "npx serve ."
   },
   "devDependencies": {
-    "@open-wc/testing": "^3.0.3",
-    "@web/test-runner": "^0.14.0",
-    "eslint": "^8.10.0",
-    "prettier": "^2.5.1"
+    "@open-wc/testing": "^3.1.7",
+    "@web/test-runner": "^0.15.0",
+    "eslint": "^8.32.0",
+    "prettier": "^2.8.3"
   },
   "prettier": {
     "tabWidth": 2,
@@ -51,6 +51,6 @@
     "custom element"
   ],
   "dependencies": {
-    "super-media-element": "^0.3.0"
+    "super-media-element": "^0.4.0"
   }
 }
