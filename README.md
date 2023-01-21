@@ -12,7 +12,7 @@ One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media
 
 <!-- prettier-ignore -->
 ```html
-<script type="module" src="https://unpkg.com/jwplayer-video-element@0"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@0.2/+esm"></script>
 <jwplayer-video controls src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"></jwplayer-video>
 ```
 
@@ -24,7 +24,7 @@ One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media
 
 <!-- prettier-ignore -->
 ```html
-<script type="module" src="https://unpkg.com/jwplayer-video-element@0"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@0.2/+esm"></script>
 ```
 
 ### Adding to your app via `npm`
