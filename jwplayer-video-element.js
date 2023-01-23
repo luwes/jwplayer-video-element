@@ -173,15 +173,7 @@ class PublicPromise extends Promise {
   }
 }
 
-if (
-  globalThis.customElements.get('jwplayer-video') ||
-  globalThis.JWPlayerVideoElement
-) {
-  console.debug(
-    'JWPlayerVideoElement: <jwplayer-video> defined more than once.'
-  );
-} else {
-  globalThis.JWPlayerVideoElement = JWPlayerVideoElement;
+if (!globalThis.customElements.get('jwplayer-video')) {
   globalThis.customElements.define('jwplayer-video', JWPlayerVideoElement);
 }
 
