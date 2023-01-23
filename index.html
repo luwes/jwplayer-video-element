@@ -19,6 +19,10 @@
         aspect-ratio: 16 / 9;
         background: #000;
       }
+      media-controller {
+        display: block;
+        width: 100%;
+      }
     </style>
 
     <script type="importmap">
@@ -29,15 +33,49 @@
       }
     </script>
     <script type="module" src="./jwplayer-video-element.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome/+esm"></script>
   </head>
   <body>
     <h1>&lt;jwplayer-video&gt;</h1>
-    <br />
+    <br>
     <jwplayer-video
       controls
       src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
       loop
       muted
     ></jwplayer-video>
+
+    <br>
+
+    <h2>With <a href="https://github.com/muxinc/media-chrome" target="_blank">Media Chrome</a></h2>
+
+    <media-controller style="aspect-ratio: 16 / 9;">
+      <jwplayer-video
+        slot="media"
+        crossorigin
+        src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
+        playsinline
+      >
+        <track
+          label="thumbnails"
+          default
+          kind="metadata"
+          src="https://assets-jpcust.jwpsrv.com/strips/C8YE48zj-120.vtt"
+        />
+      </jwplayer-video>
+      <media-loading-indicator slot="centered-chrome" no-auto-hide></media-loading-indicator>
+      <media-control-bar>
+        <media-play-button></media-play-button>
+        <media-seek-backward-button seek-offset="15"></media-seek-backward-button>
+        <media-seek-forward-button seek-offset="15"></media-seek-forward-button>
+        <media-mute-button></media-mute-button>
+        <media-volume-range></media-volume-range>
+        <media-time-range></media-time-range>
+        <media-time-display show-duration remaining></media-time-display>
+        <media-playback-rate-button></media-playback-rate-button>
+        <media-pip-button></media-pip-button>
+        <media-fullscreen-button></media-fullscreen-button>
+      </media-control-bar>
+    </media-controller>
   </body>
 </html>
