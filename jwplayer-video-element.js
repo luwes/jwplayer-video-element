@@ -18,6 +18,7 @@ templateShadowDOM.innerHTML = `
     width: 100%;
   }
 </style>
+<slot></slot>
 `;
 
 class JWPlayerVideoElement extends SuperVideoElement {
@@ -25,8 +26,6 @@ class JWPlayerVideoElement extends SuperVideoElement {
 
   constructor() {
     super();
-    this.shadowRoot.append(templateShadowDOM.content.cloneNode(true));
-
     this.loadComplete = new PublicPromise();
   }
 

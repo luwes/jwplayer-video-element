@@ -1,9 +1,10 @@
 {
   "name": "jwplayer-video-element",
   "version": "0.2.1",
-  "description": "Custom element (web component) for the JW player.",
+  "description": "A custom element for the JW player with an API that matches the `<video>` API",
   "type": "module",
   "main": "jwplayer-video-element.js",
+  "files": [],
   "repository": "luwes/jwplayer-video-element",
   "author": "Wesley Luyten <me@wesleyluyten.com> (https://wesleyluyten.com)",
   "license": "MIT",
@@ -12,31 +13,24 @@
     "url": "https://github.com/luwes/jwplayer-video-element/issues"
   },
   "scripts": {
-    "test": "web-test-runner --config test/web-test-runner.config.js",
-    "dev": "npx serve ."
+    "lint": "npx eslint *.js",
+    "test": "node test/runner.js",
+    "dev": "node test/server.js"
   },
   "dependencies": {
-    "super-media-element": "^0.4.1"
+    "super-media-element": "^0.4.2"
   },
   "devDependencies": {
-    "@open-wc/testing": "^3.1.7",
-    "@web/test-runner": "^0.15.0",
-    "eslint": "^8.32.0",
-    "prettier": "^2.8.3"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "singleQuote": true,
-    "semi": true
+    "playwright-core": "^1.30.0"
   },
   "eslintConfig": {
+    "root": true,
     "globals": {
       "globalThis": "writable"
     },
     "env": {
       "browser": true,
-      "es6": true,
-      "mocha": true
+      "es6": true
     },
     "extends": [
       "eslint:recommended"
