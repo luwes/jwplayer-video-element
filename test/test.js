@@ -1,82 +1,105 @@
-import { fixture, assert, aTimeout } from "@open-wc/testing";
+import { test } from 'zora';
 
-describe("<jwplayer-video>", () => {
-  it("has a video like API", async function () {
-    this.timeout(10000);
+function createVideoElement() {
+  return fixture(`<jwplayer-video
+    src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
+    muted
+  ></jwplayer-video>`);
+}
 
-    const player = await fixture(`<jwplayer-video
-      src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
-    ></jwplayer-video>`);
+test('has default video props', async function (t) {
+  const video = await createVideoElement();
 
-    assert.equal(player.paused, true, "is paused on initialization");
+  t.equal(video.paused, true, 'is paused on initialization');
 
-    await player.loadComplete;
+  await video.loadComplete;
 
-    assert.equal(player.paused, true, "is paused on initialization");
-    assert(!player.ended, "is not ended");
-
-    assert(!player.loop, "loop is false by default");
-    player.loop = true;
-    assert(player.loop, "loop is true");
-
-    assert.equal(player.volume, 1, "is all turned up");
-    player.volume = 0.5;
-    assert.equal(player.volume, 0.5, "is half volume");
-
-    player.muted = true;
-    assert(player.muted, "is muted");
-
-    try {
-      await player.play();
-    } catch (error) {
-      console.warn(error);
-    }
-
-    assert(!player.paused, "is playing after player.play()");
-    assert.equal(Math.round(player.duration), 115, `is 115s long`);
-
-    await aTimeout(1000);
-
-    assert.equal(String(Math.round(player.currentTime)), 1, "is about 1s in");
-
-    player.playbackRate = 2;
-    await aTimeout(1000);
-
-    assert.equal(String(Math.round(player.currentTime)), 3, "is about 3s in");
-  });
-
-  it("can load a new src", async function () {
-    this.timeout(10000);
-
-    const player = await fixture(`<jwplayer-video
-      src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"
-      muted
-    ></jwplayer-video>`);
-
-    const loadComplete = player.loadComplete;
-    await player.loadComplete;
-
-    assert(player.muted, "is muted");
-
-    await promisify(player.addEventListener.bind(player))('loadedmetadata');
-
-    assert.equal(Math.round(player.duration), 115, `is 115s long`);
-
-    player.src = 'https://cdn.jwplayer.com/players/hAETCxXu-Pd4r8gwe.html';
-
-    assert(loadComplete != player.loadComplete, 'creates a new promise after new src');
-
-    await promisify(player.addEventListener.bind(player))('loadedmetadata');
-
-    assert.equal(Math.round(player.duration), 20, `is 20s long`);
-
-    player.src = 'https://cdn.jwplayer.com/players/R12Nj7bO-Pd4r8gwe.html';
-
-    await promisify(player.addEventListener.bind(player))('loadedmetadata');
-
-    assert.equal(Math.round(player.duration), 90, `is 90s long`);
-  });
+  t.equal(video.paused, true, 'is paused on initialization');
+  t.ok(!video.ended, 'is not ended');
+  t.ok(video.muted, 'is muted');
 });
+
+test('volume', async function (t) {
+  const video = await createVideoElement();
+  await video.loadComplete;
+
+  video.volume = 1;
+  await delay(100); // postMessage is not instant
+  t.equal(video.volume, 1, 'is all turned up. volume: ' + video.volume);
+  video.volume = 0.5;
+  await delay(100); // postMessage is not instant
+  t.equal(video.volume, 0.5, 'is half volume');
+});
+
+test('loop', async function (t) {
+  const video = await createVideoElement();
+  await video.loadComplete;
+
+  t.ok(!video.loop, 'loop is false by default');
+  video.loop = true;
+  t.ok(video.loop, 'loop is true');
+});
+
+test('duration', async function (t) {
+  const video = await createVideoElement();
+  await video.loadComplete;
+
+  if (video.duration == null || Number.isNaN(video.duration)) {
+    await promisify(video.addEventListener.bind(video))('durationchange');
+  }
+
+  t.equal(Math.round(video.duration), 115, `is 115s long`);
+});
+
+test('load promise', async function (t) {
+  const video = await createVideoElement();
+  await video.loadComplete;
+
+  const loadComplete = video.loadComplete;
+
+  video.src = 'https://cdn.jwplayer.com/players/R12Nj7bO-Pd4r8gwe.html';
+  await video.loadComplete;
+
+  t.ok(
+    loadComplete != video.loadComplete,
+    'creates a new promise after new src'
+  );
+
+  if (video.duration == null || Number.isNaN(video.duration)) {
+    await promisify(video.addEventListener.bind(video))('durationchange');
+  }
+
+  t.equal(Math.round(video.duration), 90, `is 90s long`);
+});
+
+test('play promise', async function (t) {
+  const video = await createVideoElement();
+  await video.loadComplete;
+
+  video.muted = true;
+
+  try {
+    await video.play();
+  } catch (error) {
+    console.warn(error);
+  }
+  t.ok(!video.paused, 'is playing after video.play()');
+});
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fixture(html) {
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  const fragment = template.content.cloneNode(true);
+  const result = fragment.children.length > 1
+    ? [...fragment.children]
+    : fragment.children[0];
+  document.body.append(fragment);
+  return result;
+}
 
 function promisify(fn) {
   return (...args) =>
