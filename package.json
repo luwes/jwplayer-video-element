@@ -14,14 +14,14 @@
   },
   "scripts": {
     "lint": "npx eslint *.js",
-    "test": "node test/runner.js",
-    "dev": "node test/server.js"
+    "test": "wet run",
+    "dev": "wet serve"
   },
   "dependencies": {
     "super-media-element": "^0.4.2"
   },
   "devDependencies": {
-    "playwright-core": "^1.30.0"
+    "wet-run": "^0.0.5"
   },
   "eslintConfig": {
     "root": true,
