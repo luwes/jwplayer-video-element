@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/luwes/jwplayer-video-element/compare/v0.2.2...v0.2.3) (2023-03-04)
+
+
+### Bug Fixes
+
+* upgrade wet ([8ad803c](https://github.com/luwes/jwplayer-video-element/commit/8ad803c35e872adf6cf6e807dc0294319ff8d667))
+
+
+
 ## [0.2.2](https://github.com/luwes/jwplayer-video-element/compare/v0.1.0...v0.2.2) (2023-02-25)
 
 
