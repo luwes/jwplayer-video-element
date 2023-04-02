@@ -1,3 +1,12 @@
+## [0.2.4](https://github.com/luwes/jwplayer-video-element/compare/v0.2.3...v0.2.4) (2023-04-02)
+
+
+### Bug Fixes
+
+* improve sizing ([35420aa](https://github.com/luwes/jwplayer-video-element/commit/35420aa7f74316e298b33b68a397dc0b22c48475))
+
+
+
 ## [0.2.3](https://github.com/luwes/jwplayer-video-element/compare/v0.2.2...v0.2.3) (2023-03-04)
 
 
