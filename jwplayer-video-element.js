@@ -1,7 +1,7 @@
 import { SuperVideoElement } from 'super-media-element';
 
 const templateLightDOM = document.createElement('template');
-templateLightDOM.innerHTML = `
+templateLightDOM.innerHTML = /*html*/`
 <style class="jw-style">
   .jw-no-controls [class*="jw-controls"],
   .jw-no-controls .jw-title {
@@ -12,10 +12,18 @@ templateLightDOM.innerHTML = `
 `;
 
 const templateShadowDOM = document.createElement('template');
-templateShadowDOM.innerHTML = `
+templateShadowDOM.innerHTML = /*html*/`
 <style>
   :host {
+    display: inline-block;
+    min-width: 300px;
+    min-height: 150px;
+    position: relative;
+  }
+  ::slotted(.jwplayer) {
+    position: absolute !important;
     width: 100%;
+    height: 100%;
   }
 </style>
 <slot></slot>
@@ -111,13 +119,7 @@ class JWPlayerVideoElement extends SuperVideoElement {
 
   set controls(val) {
     if (this.controls == val) return;
-
-    if (val) {
-      this.setAttribute('controls', '');
-    } else {
-      // Remove boolean attribute if false, 0, '', null, undefined.
-      this.removeAttribute('controls');
-    }
+    this.toggleAttribute('controls', Boolean(val));
   }
 
   get controls() {
