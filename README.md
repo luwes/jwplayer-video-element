@@ -1,42 +1,42 @@
-# `<jwplayer-video>` [![Version](https://img.shields.io/npm/v/jwplayer-video-element)](https://www.npmjs.com/package/jwplayer-video-element) [![Badge size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/jwplayer-video-element/+esm?compression=gzip&label=gzip)](https://cdn.jsdelivr.net/npm/jwplayer-video-element/+esm)
+# `<jwplayer-video>` 
 
-A custom element (web component) for the JW player.
+[![Version](https://img.shields.io/npm/v/jwplayer-video-element?style=flat-square)](https://www.npmjs.com/package/jwplayer-video-element)
+[![Badge size](https://img.badgesize.io/https://cdn.jsdelivr.net/npm/jwplayer-video-element/+esm?compression=gzip&label=gzip&style=flat-square)](https://cdn.jsdelivr.net/npm/jwplayer-video-element/+esm)
 
-The element API matches the HTML5 `<video>` tag, so it can be easily swapped with other media, and be compatible with other UI components that work with the video tag.
+A [custom element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) 
+for the JW player with an API that matches the 
+[`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) API.
 
-One of the goals was to have `<jwplayer-video>` seamlessly integrate with [Media Chrome](https://github.com/muxinc/media-chrome).
-
-> 🙋 Looking for a YouTube video element? Check out [`<youtube-video>`](https://github.com/muxinc/youtube-video-element).
+- 🏄‍♂️ Compatible [`HTMLMediaElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement) API
+- 🕺 Seamlessly integrates with [Media Chrome](https://github.com/muxinc/media-chrome)
 
 ## Example ([CodeSandbox](https://codesandbox.io/s/jwplayer-video-element-gm5qd1))
 
 <!-- prettier-ignore -->
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@0.2/+esm"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@1.0/+esm"></script>
 <jwplayer-video controls src="https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html"></jwplayer-video>
 ```
 
-## Installing
+## Install
 
-`<jwplayer-video>` is packaged as a javascript module (es6) only, which is supported by all evergreen browsers and Node v12+.
-
-### Loading into your HTML using `<script>`
-
-<!-- prettier-ignore -->
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@0.2/+esm"></script>
-```
-
-### Adding to your app via `npm`
+First install the NPM package:
 
 ```bash
-npm install jwplayer-video-element --save
+npm install jwplayer-video-element
 ```
 
-Include in your app javascript (e.g. src/App.js)
+Import in your app javascript (e.g. src/App.js):
 
 ```js
 import 'jwplayer-video-element';
+```
+
+Optionally, you can load the script directly from a CDN using [JSDelivr](https://www.jsdelivr.com/):
+
+<!-- prettier-ignore -->
+```html
+<script type="module" src="https://cdn.jsdelivr.net/npm/jwplayer-video-element@1.0/+esm"></script>
 ```
 
 This will register the custom elements with the browser so they can be used as HTML.
@@ -44,11 +44,11 @@ This will register the custom elements with the browser so they can be used as H
 ## Related
 
 - [Media Chrome](https://github.com/muxinc/media-chrome) Your media player's dancing suit. 🕺
-- [`<youtube-video>`](https://github.com/muxinc/youtube-video-element) A web component for the YouTube player.
-- [`<vimeo-video>`](https://github.com/luwes/vimeo-video-element) A web component for the Vimeo player.
-- [`<wistia-video>`](https://github.com/luwes/wistia-video-element) A web component for the Wistia player.
-- [`<videojs-video>`](https://github.com/luwes/videojs-video-element) A web component for Video.js.
-- [`<hls-video>`](https://github.com/muxinc/hls-video-element) A web component for playing HTTP Live Streaming (HLS) videos.
+- [`<youtube-video>`](https://github.com/muxinc/youtube-video-element) A custom element for the YouTube player.
+- [`<vimeo-video>`](https://github.com/luwes/vimeo-video-element) A custom element for the Vimeo player.
+- [`<wistia-video>`](https://github.com/luwes/wistia-video-element) A custom element for the Wistia player.
+- [`<videojs-video>`](https://github.com/luwes/videojs-video-element) A custom element for Video.js.
+- [`<hls-video>`](https://github.com/muxinc/hls-video-element) A custom element for playing HTTP Live Streaming (HLS) videos.
 - [`castable-video`](https://github.com/muxinc/castable-video) Cast your video element to the big screen with ease!
-- [`<mux-player>`](https://github.com/muxinc/elements/tree/main/packages/mux-player) The official Mux-flavored video player web component.
+- [`<mux-player>`](https://github.com/muxinc/elements/tree/main/packages/mux-player) The official Mux-flavored video player custom element.
 - [`<mux-video>`](https://github.com/muxinc/elements/tree/main/packages/mux-video) A Mux-flavored HTML5 video element w/ hls.js and Mux data builtin.
