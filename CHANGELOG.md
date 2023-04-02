@@ -1,3 +1,7 @@
+# [1.0.0](https://github.com/luwes/jwplayer-video-element/compare/v0.2.4...v1.0.0) (2023-04-02)
+
+
+
 ## [0.2.4](https://github.com/luwes/jwplayer-video-element/compare/v0.2.3...v0.2.4) (2023-04-02)
 
 
