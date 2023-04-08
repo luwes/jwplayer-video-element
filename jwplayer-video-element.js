@@ -87,21 +87,24 @@ class JWPlayerVideoElement extends SuperVideoElement {
       return;
     }
 
-    super.attributeChangedCallback(attrName, oldValue, newValue);
+    if (['controls', 'muted'].includes(attrName)) {
+      // Don't await super.attributeChangedCallback above, it would resolve later.
+      await this.loadComplete;
 
-    // Don't await super.attributeChangedCallback above, it would resolve later.
-    await this.loadComplete;
-
-    switch (attrName) {
-      case 'controls':
-        this.api
-          .getContainer()
-          .classList.toggle('jw-no-controls', !this.controls);
-        break;
-      case 'muted':
-        this.muted = this.getAttribute('muted') != null;
-        break;
+      switch (attrName) {
+        case 'controls':
+          this.api
+            .getContainer()
+            .classList.toggle('jw-no-controls', !this.controls);
+          break;
+        case 'muted':
+          this.muted = this.getAttribute('muted') != null;
+          break;
+      }
+      return;
     }
+
+    super.attributeChangedCallback(attrName, oldValue, newValue);
   }
 
   get paused() {
@@ -113,12 +116,10 @@ class JWPlayerVideoElement extends SuperVideoElement {
   }
 
   set src(val) {
-    if (this.src == val) return;
     this.setAttribute('src', val);
   }
 
   set controls(val) {
-    if (this.controls == val) return;
     this.toggleAttribute('controls', Boolean(val));
   }
 
