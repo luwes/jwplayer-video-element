@@ -31,26 +31,16 @@ templateShadowDOM.innerHTML = /*html*/`
 
 class JWPlayerVideoElement extends SuperVideoElement {
   static template = templateShadowDOM;
-
-  constructor() {
-    super();
-    this.loadComplete = new PublicPromise();
-  }
+  static skipAttributes = ['src'];
 
   get nativeEl() {
     return this.querySelector('.jw-video');
   }
 
   async load() {
-    if (this.hasLoaded) this.loadComplete = new PublicPromise();
-    this.hasLoaded = true;
-
     this.loadComplete.then(() => {
       this.volume = 1;
     });
-
-    // Wait 1 tick to allow other attributes to be set.
-    await Promise.resolve();
 
     // e.g. https://cdn.jwplayer.com/players/C8YE48zj-IxzuqJ4M.html
     const MATCH_SRC = /jwplayer\.com\/players\/(\w+)(?:-(\w+))?/i;
@@ -75,20 +65,11 @@ class JWPlayerVideoElement extends SuperVideoElement {
     await promisify(this.api.on, this.api)('ready');
 
     this.api.getContainer().classList.toggle('jw-no-controls', !this.controls);
-
-    this.dispatchEvent(new Event('loadcomplete'));
-    this.loadComplete.resolve();
   }
 
   async attributeChangedCallback(attrName, oldValue, newValue) {
-    // This is required to come before the await for resolving loadComplete.
-    if (attrName === 'src' && newValue) {
-      this.load();
-      return;
-    }
 
     if (['controls', 'muted'].includes(attrName)) {
-      // Don't await super.attributeChangedCallback above, it would resolve later.
       await this.loadComplete;
 
       switch (attrName) {
@@ -98,7 +79,7 @@ class JWPlayerVideoElement extends SuperVideoElement {
             .classList.toggle('jw-no-controls', !this.controls);
           break;
         case 'muted':
-          this.muted = this.getAttribute('muted') != null;
+          this.muted = this.hasAttribute('muted');
           break;
       }
       return;
@@ -110,43 +91,22 @@ class JWPlayerVideoElement extends SuperVideoElement {
   get paused() {
     return this.nativeEl?.paused ?? true;
   }
-
-  get src() {
-    return this.getAttribute('src');
-  }
-
-  set src(val) {
-    this.setAttribute('src', val);
-  }
-
-  set controls(val) {
-    this.toggleAttribute('controls', Boolean(val));
-  }
-
-  get controls() {
-    return this.getAttribute('controls') != null;
-  }
 }
 
 const loadScriptCache = {};
-async function loadScript(src, globalName, readyFnName) {
+async function loadScript(src, globalName) {
+  if (!globalName) return import(src);
   if (loadScriptCache[src]) return loadScriptCache[src];
-  if (globalName && self[globalName]) {
-    await delay(0);
-    return self[globalName];
-  }
-  return (loadScriptCache[src] = new Promise(function (resolve, reject) {
+  if (self[globalName]) return self[globalName];
+  return (loadScriptCache[src] = new Promise((resolve, reject) => {
     const script = document.createElement('script');
+    script.defer = true;
     script.src = src;
-    const ready = () => resolve(self[globalName]);
-    if (readyFnName) (self[readyFnName] = ready);
-    script.onload = () => !readyFnName && ready();
+    script.onload = () => resolve(self[globalName]);
     script.onerror = reject;
     document.head.append(script);
   }));
 }
-
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function promisify(fn) {
   return (...args) =>
@@ -156,23 +116,6 @@ export function promisify(fn) {
         else resolve(res[0]);
       });
     });
-}
-
-/**
- * A utility to create Promises with convenient public resolve and reject methods.
- * @return {Promise}
- */
-class PublicPromise extends Promise {
-  constructor(executor = () => {}) {
-    let res, rej;
-    super((resolve, reject) => {
-      executor(resolve, reject);
-      res = resolve;
-      rej = reject;
-    });
-    this.resolve = res;
-    this.reject = rej;
-  }
 }
 
 if (!globalThis.customElements.get('jwplayer-video')) {
