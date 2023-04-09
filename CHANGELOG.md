@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/luwes/jwplayer-video-element/compare/v1.0.2...v1.0.3) (2023-04-09)
+
+
+### Bug Fixes
+
+* update super-media-element v1.2.0 ([075933e](https://github.com/luwes/jwplayer-video-element/commit/075933e170769799796281e3a749c2f2b5e1cf9f))
+
+
+
 ## [1.0.2](https://github.com/luwes/jwplayer-video-element/compare/v1.0.1...v1.0.2) (2023-04-09)
 
 
