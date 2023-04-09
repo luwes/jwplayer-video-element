@@ -38,6 +38,14 @@ class JWPlayerVideoElement extends SuperVideoElement {
   }
 
   async load() {
+    // Cleanup the previous video container.
+    this.querySelector('.jw-style')?.remove();
+    this.querySelector('.jwplayer')?.remove();
+
+    if (!this.src) {
+      return;
+    }
+
     this.loadComplete.then(() => {
       this.volume = 1;
     });
@@ -51,8 +59,6 @@ class JWPlayerVideoElement extends SuperVideoElement {
     const JW = await loadScript(scriptUrl, 'jwplayer');
 
     // Sadly the JW player setup/render will not work in the shadow DOM.
-    this.querySelector('.jw-style')?.remove();
-    this.querySelector('.jwplayer')?.remove();
     this.append(templateLightDOM.content.cloneNode(true));
 
     this.api = JW(this.querySelector('.jwplayer')).setup({
