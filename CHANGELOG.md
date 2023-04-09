@@ -1,3 +1,12 @@
+## [1.0.4](https://github.com/luwes/jwplayer-video-element/compare/v1.0.3...v1.0.4) (2023-04-09)
+
+
+### Bug Fixes
+
+* add unload ([c33ff26](https://github.com/luwes/jwplayer-video-element/commit/c33ff267727eae54bad39158f3157bca738cd12b))
+
+
+
 ## [1.0.3](https://github.com/luwes/jwplayer-video-element/compare/v1.0.2...v1.0.3) (2023-04-09)
 
 
