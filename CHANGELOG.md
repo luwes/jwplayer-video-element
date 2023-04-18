@@ -1,3 +1,12 @@
+## [1.0.5](https://github.com/luwes/jwplayer-video-element/compare/v1.0.4...v1.0.5) (2023-04-18)
+
+
+### Bug Fixes
+
+* Next.js SSR document type error ([ed3f99d](https://github.com/luwes/jwplayer-video-element/commit/ed3f99dfa4609970191fe1496a01776add2516a8))
+
+
+
 ## [1.0.4](https://github.com/luwes/jwplayer-video-element/compare/v1.0.3...v1.0.4) (2023-04-09)
 
 
